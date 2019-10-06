@@ -9,9 +9,7 @@
  * - User input
  *    - only delete a word when the player types article and word correctly
  *    - allow the player to ignore special characters like ä and ß
- * - Polishing when the list of wordsonscreen is empty
  * - Avoid collisions and crammed lines
- * - Implement the DeathCallback to handle words that reach the end of the screen
  * - Help the user with repeating known words and adding new ones sporadically
  * - Add game and score rules so that
  *     - There is a score such as correct articles / 10 minutes
@@ -51,12 +49,19 @@ type Worte struct {
 	Word    string
 }
 
-type WordOnScreen struct {
-	Word      Worte
-	WordShape termination.Shape
-	Entity    *termination.Entity
-	Hits      int
-	Misses    int
+type dddData struct {
+	wordsList    []Worte
+	onScreenList map[int]WordForScreen
+	mutex        *sync.Mutex
+	term         *termination.Termination
+}
+
+type WordForScreen struct {
+	Word    Worte
+	Entity  *termination.Entity
+	Hits    int
+	Misses  int
+	dddData *dddData
 }
 
 func random(min int, max int) int {
@@ -68,84 +73,141 @@ func wordMovement(t *termination.Termination, e *termination.Entity, position te
 	return position
 }
 
-func randomRemoveFromScreen(term *termination.Termination, wordsList []Worte, wordsOnScreen map[int]WordOnScreen, mutex *sync.Mutex) {
+func deathCallback(term *termination.Termination, entity *termination.Entity) {
 
-	var wordOnScreen WordOnScreen
-	var wordIdx int
+	wordForScreen := entity.Data.(WordForScreen)
 
-	mutex.Lock()
-	for key, value := range wordsOnScreen {
-		wordOnScreen = value
-		wordIdx = key
-		break
+	word := wordForScreen.Word.Word
+	var wordIdx int = -1
+
+	wordForScreen.dddData.mutex.Lock()
+	for key, value := range wordForScreen.dddData.onScreenList {
+		if value.Word.Word == word {
+			wordIdx = key
+			break
+		}
 	}
-	mutex.Unlock()
+	wordForScreen.dddData.mutex.Unlock()
 
-	article := wordOnScreen.Word.Article
-	word := wordOnScreen.Word.Word
+	if wordIdx > 0 {
+		removeFromScreen(*(wordForScreen.dddData), wordIdx, true)
+	}
+}
+
+func removeFromScreen(dddData dddData, wordIdx int, noWait bool) {
+	var wordForScreen WordForScreen
+
+	dddData.mutex.Lock()
+	_, ok := dddData.onScreenList[wordIdx]
+	if ok {
+		wordForScreen = dddData.onScreenList[wordIdx]
+		delete(dddData.onScreenList, wordIdx)
+	}
+	dddData.mutex.Unlock()
+
+	if !ok {
+		return
+	}
+
+	article := wordForScreen.Word.Article
+	word := wordForScreen.Word.Word
 
 	wordShape := termination.Shape{
 		"default": []string{
 			article + " " + word,
 		},
 	}
-	wordOnScreen.Entity.Shape = wordShape
-	time.Sleep(300 * time.Millisecond)
-	wordOnScreen.Entity.Die()
-
-	mutex.Lock()
-	delete(wordsOnScreen, wordIdx)
-	mutex.Unlock()
+	wordForScreen.Entity.Shape = wordShape
+	if !noWait {
+		time.Sleep(250 * time.Millisecond)
+	}
+	wordForScreen.Entity.Die()
 }
 
-func randomWordToScreen(term *termination.Termination, wordsList []Worte, wordsOnScreen map[int]WordOnScreen, mutex *sync.Mutex) {
+func randomRemoveFromScreen(dddData dddData) {
+	var wordIdx int
+	var ok bool = false
 
-	var wordOnScreen WordOnScreen
+	dddData.mutex.Lock()
+	if len(dddData.onScreenList) != 0 {
+		ok = true
+		for key, _ := range dddData.onScreenList {
+			wordIdx = key
+			break
+		}
+	}
+	dddData.mutex.Unlock()
 
-	wordMaxIdx := len(wordsList) - 1
-	wordIdx := random(0, wordMaxIdx)
+	if !ok {
+		return
+	}
 
-	word := wordsList[wordIdx].Word
+	removeFromScreen(dddData, wordIdx, false)
+}
+
+func randomWordToScreen(dddData dddData) {
+
+	var wordForScreen WordForScreen
+	var wordIdx int
+
+	wordMaxIdx := len(dddData.wordsList) - 1
+
+	// Make sure to not add same word twice on screen
+	for {
+		wordIdx = random(0, wordMaxIdx)
+
+		dddData.mutex.Lock()
+		_, ok := dddData.onScreenList[wordIdx]
+		dddData.mutex.Unlock()
+
+		if !ok {
+			break
+		}
+	}
+
+	word := dddData.wordsList[wordIdx].Word
 
 	wordShape := termination.Shape{
 		"default": []string{
-			word,
+			"___ " + word,
 		},
 	}
 
-	wordLen := len(word)
-	position := termination.Position{-1 * wordLen, random(0, 25), 0}
+	wordLen := len(word) + 4 // 4 is from "___ "
+	position := termination.Position{-1 * wordLen, random(0, dddData.term.Height), 0}
 
-	wordOnScreen.Word = wordsList[wordIdx]
-	wordOnScreen.WordShape = wordShape
-	wordOnScreen.Entity = term.NewEntity(position)
-	wordOnScreen.Entity.Shape = wordShape
-	wordOnScreen.Entity.DeathOnOffScreen = true
-	wordOnScreen.Entity.MovementCallback = wordMovement
+	wordForScreen.Word = dddData.wordsList[wordIdx]
+	wordForScreen.dddData = &dddData
+	wordForScreen.Entity = dddData.term.NewEntity(position)
+	wordForScreen.Entity.Shape = wordShape
+	wordForScreen.Entity.DeathOnOffScreen = true
+	wordForScreen.Entity.MovementCallback = wordMovement
+	wordForScreen.Entity.Data = wordForScreen
+	wordForScreen.Entity.DeathCallback = deathCallback
 
-	mutex.Lock()
-	wordsOnScreen[wordIdx] = wordOnScreen
-	mutex.Unlock()
+	dddData.mutex.Lock()
+	dddData.onScreenList[wordIdx] = wordForScreen
+	dddData.mutex.Unlock()
 }
 
-func wordAdderLoop(wordsList []Worte, wordsOnScreen map[int]WordOnScreen, mutex *sync.Mutex, term *termination.Termination) {
-	tick := time.Tick(500 * time.Millisecond)
+func wordAdderLoop(dddData dddData) {
+	tick := time.Tick(250 * time.Millisecond)
 
 	for {
 		select {
 		case <-tick:
-			randomWordToScreen(term, wordsList, wordsOnScreen, mutex)
+			randomWordToScreen(dddData)
 		}
 	}
 }
 
-func wordRemoverLoop(wordsList []Worte, wordsOnScreen map[int]WordOnScreen, mutex *sync.Mutex, term *termination.Termination) {
-	tick := time.Tick(500 * time.Millisecond)
+func wordRemoverLoop(dddData dddData) {
+	tick := time.Tick(250 * time.Millisecond)
 
 	for {
 		select {
 		case <-tick:
-			randomRemoveFromScreen(term, wordsList, wordsOnScreen, mutex)
+			randomRemoveFromScreen(dddData)
 		}
 	}
 }
@@ -176,22 +238,24 @@ func populateWords(inputFile string) []Worte {
 }
 
 func main() {
-	var wordsList []Worte
-	var wordsOnScreen = make(map[int]WordOnScreen)
-	var mutex = &sync.Mutex{}
+	var dddData dddData
 
-	wordsList = populateWords("A1Worteliste.txt")
+	dddData.onScreenList = make(map[int]WordForScreen)
+	dddData.mutex = &sync.Mutex{}
+	dddData.term = termination.New()
+	dddData.term.FramesPerSecond = 10
+	dddData.wordsList = populateWords("A1Worteliste.txt")
+
 	rand.Seed(time.Now().UnixNano())
 
-	term := termination.New()
-	term.FramesPerSecond = 6
-	defer term.Close()
-	go term.Animate()
+	defer dddData.term.Close()
+	go dddData.term.Animate()
+
 	termbox.SetInputMode(termbox.InputEsc)
 
-	go wordAdderLoop(wordsList, wordsOnScreen, mutex, term)
-	time.Sleep(6 * time.Second)
-	go wordRemoverLoop(wordsList, wordsOnScreen, mutex, term)
+	go wordAdderLoop(dddData)
+	time.Sleep(5 * time.Second)
+	go wordRemoverLoop(dddData)
 
 mainloop:
 	for {
