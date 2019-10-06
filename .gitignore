@@ -1,0 +1,9 @@
+*.so
+*.dylib
+*.test
+*.out
+*.swo
+
+ddd
+
+*.swp

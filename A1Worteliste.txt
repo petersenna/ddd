@@ -1,0 +1,327 @@
+der Absender Da ist ein Brief für dich ohne Absender. 
+der Anfang Sie wohnt am Anfang der Straße.
+der Anruf, -e Sie bekommt viele Anrufe auf ihrem Handy.
+der Anschluss In Mannheim haben Sie Anschluss nach Saarbrücken.
+der Apfel, -Ä Ein Pfund Äpfel bitte. 
+der Appetit Guten Appetit! 
+der Arbeitsplatz, -ä, e An meinem Arbeitsplatz fehlt ein Drucker.
+der Arm, -e Mein Arm tut weh.
+der Arzt, -Ä, e Morgen habe ich einen Termin bei meiner Ärztin. 
+der Aufzug, -ü, e In diesem Haus gibt es keinen Aufzug.
+der Ausflug Morgen machen wir einen Ausflug nach Heidelberg. 
+der Ausgang Wo ist der Ausgang?
+der Ausländer, - SInd Sie Ausländerin?
+der Ausweis Hier ist mein Ausweis.
+der Automat Die Fahrkarten gibt es nur am Automaten.
+der Bahnhof Komme ich hier zum Bahnhof?
+der Bahnsteig Auf welchem Bahnsteig fährt der Zug?
+der Balkon Die Wohnung hat auch einen kleinen Balkon.
+der Bauch Seit gestern tut mir der Bauch weh. 
+der Baum, -ä, e Vorsicht, fahr nicht an den Baum! 
+der Beamte, -n Fragen Sie die Beamtin an Schalter acht! 
+der Beruf, -e Was sind Sie von Beruf?
+der Bleistift, -e Hast du einen Bleistift?
+der Blick Von diesem Hotel hat man einen guten Blick auf den 
+der Bogen Schreiben Sie Ihre Lösungen bitte auf den Antwortbogen.
+der Brief, -e Haben Sie einen Brief für mich?
+der Bruder, -ü Sein Bruder arbeitet auch hier.
+der Buchstabe, -n Diesen Buchstaben gibt es in meiner Sprache nicht.
+der Bus, -se Wann kommt der nächste Bus?
+der Chef Wir haben eine neue Chefin.
+der Computer, – WannbekommstdudeinenneuenComputer?
+der Dank Vielen Dank!
+der Doktor Meine Tochter ist krank. Wir gehen zum Doktor. 
+der Drucker, – Mein Drucker ist kaputt.
+der Durst Hast du etwas zu trinken? Ich habe großen Durst.
+der Ehemann, ä, er Das ist mein (Ehe-) Mann/meine (Ehe-) Frau.
+der Eingang Der Eingang ist um die Ecke.
+der Eintritt Der Preis für den Eintritt ist 5 Euro. 
+der Empfänger, – Auf dem Brief steht dein Name, also bist du der 
+der Erwachsene, -n Dieser Film ist nur für Erwachsene.
+der Fahrer Bitte nicht mit dem Fahrer sprechen!
+der Familienname Meine Familiennamen sind García González. 
+der Familienstand Bei „Familienstand“ musst du „ledig“ ankreuzen.
+der Fehler, – Diesen Fehler mache ich immer. 
+der Film, -e Ich möchte gern diesen Film sehen.
+der Fisch, -e Ich esse gern Fisch. Fleisch mag ich nicht.
+der Abflug Der Abflug ist um 11.20 Uhr.
+der Flughafen Kannst du mich zum Flughafen bringen?
+der Freund, -e Das ist ein Freund von mir.
+der Fuß, -ü, e Der linke Fuß tut mir weh.
+der Fußball Spielt ihr gerne Fußball? 
+der Garten Wir haben leider keinen Garten.
+der Gast, -ä, e Am Wochenende haben wir mehrere Gäste.
+der Geburtsort Bitte schreiben Sie Ihren Geburtsort auf das Formular.
+der Geburtstag Herzlichen Glückwunsch zum Geburtstag!
+der Glückwunsch Herzlichen Glückwunsch zum Geburtstag.
+der Großvater Mein Großvater ist schon 80. 
+der Gruß, -ü, e Viele Grüße an Ihre Frau.
+der Hausmann Die Hausfrau/der Hausmann wäscht, kocht und kauft 
+der Herd In der neuen Küche fehlt noch der Herd.
+der Herr, -en Guten Tag, Herr Sommer!
+der Hund, -e Der Hund ist noch jung.
+der Hunger Ich habe Hunger! Wann ist das Essen fertig?
+der Job, -s Jenny hat einen neuen Job bei der Post.
+der Jugendliche, -n Viele Jugendliche kaufen gern ein.
+der Junge, -n Ich habe zwei Kinder. Einen Jungen und ein Mädchen.
+der Kaffee Zum Frühstück trinke ich immer Kaffee.
+der Kindergarten Die kleine Laura geht schon in den Kindergarten. 
+der Kiosk Am Kiosk bekommen Sie Getränke, Zigaretten und
+der Koffer, – Ist das Ihr Koffer?
+der Kollege, -n Wie heißt die neue Kollegin?
+der Kopf Mein Kopf tut weh!
+der Kuchen Ich nehme ein Stück Kuchen.
+der Kugelschreiber Hast du einen Kugelschreiber für mich? 
+der Kühlschrank Haben wir noch Milch? – Ja, im Kühlschrank.
+der Kunde, -n Einen Moment, bitte. Ich habe eine Kundin.
+der Kurs, -e Der Deutschkurs geht bis zum Sommer.
+der Laden, -ä Im Buchladen können Sie Bücher kaufen.
+der Lehrer, – Unsere Deutschlehrerin heißt Frau Müller.
+der Lkw, -s Dieser Lastkraftwagen ist sehr groß.
+der Mann, -ä, er Mein Mann arbeitet bei der Polizei.
+der Mensch, -en Die Menschen sind hier anders als bei uns.
+der Moment Moment mal bitte!
+der Mund Öffnen Sie den Mund.
+der Name, -n Mein Name ist Thomas Schmidt.
+der Opa, -s Mein Opa heißt Hans. 
+der Ort, -e Der Ort liegt am Meer. 
+der Partner, -/
+der Pass, -ä, e Im Hotel brauchst du deinen Pass.
+der Plan, -ä, e Ich kaufe mir einen Stadtplan.
+der Platz, -ä, e Tut mir leid, der Platz ist besetzt.
+der Preis, -e Die Preise sind hoch.
+der Prospekt, -e Bitte schicken Sie mir einen Prospekt von Ihrem Hotel.
+der Raum, -ä, e Der Unterricht ist in Raum 332.
+der Regen Bei diesem Regen gehe ich nicht raus.
+der Reis Ich esse gern Reis.
+der Reiseführer Ich kaufe mir einen Reiseführer von Berlin. 
+der Salat Wie schmeckt dir der Salat?
+der Schalter Gehen Sie bitte zum Schalter drei!
+der Schinken, – Ich möchte gern ein Schinkenbrot.
+der Schluss Ich muss jetzt Schluss machen.
+der Schlüssel, – Ich gebe Ihnen noch den Zimmerschlüssel.
+der Schrank, -ä, e Die Gläser stehen im Schrank.
+der Schuh, -e Zieh die Schuhe aus!
+der Schüler, – In meinem Kurs sind acht Schülerinnen und fünf 
+der See Komm, wir fahren zum Starnberger See.
+der Sohn, -ö, e Das ist Hans, mein Sohn.
+der Sport Ich mache viel Sport.
+der Stock Unsere Wohnung liegt im ersten Stock.
+der Student, -en Ich bin Studentin.
+der Tee Ich trinke morgens immer Tee.
+der Teil, -e Lies bitte auch den zweiten Teil. 
+der Termin, -e Am besten machen wir sofort einen Termin.
+der Test Der Test war einfach.
+der Text, -e Lesen Sie bitte diesen Text.
+der Tisch, -e Die Fotos liegen auf dem Tisch.
+der Unterricht Wir haben Unterricht von 8.00 bis 12.00 Uhr.
+der Urlaub Ich nehme im September Urlaub.
+der Vater, -ä Mein Vater ist Arbeiter.
+der Verein Es gibt einen neuen Sportverein in der Stadt.
+der Verkäufer, – Meine Mutter ist Verkäuferin im Kaufhaus.
+der Vermieter Unser Vermieter heißt Huber. Er wohnt auch hier.
+der Verwandte, -n Peter besucht seine Verwandten in Polen.
+der Vorname, -n Ich heiße Müller, mein Vorname ist Eva.
+der Wein Nein danke, ich möchte keinen Wein.
+der Wind Der Wind kommt aus Osten.
+der Zoll Wir müssen noch durch den Zoll. 
+der Zug, -ü, e Ich fahre gern mit dem Zug.
+die Abfahrt Vor der Abfahrt rufe ich an.
+die Adresse,-en Können Sie mir seine Adresse sagen?
+die Ankunft Auf diesem Plan steht nur die Ankunft(-szeit) der
+die Anmeldung Eine Anmeldung für diesen Kurs ist nicht mehr möglich.
+die Anrede Schreiben Sie auch eine Anrede und einen Gruß.
+die Ansage, -n Hören Sie die Ansagen.
+die Antwort, -en Er gibt leider keine Antwort.
+die Anzeige, -n Ich habe Ihre Anzeige in der Zeitung gelesen.
+die Arbeit, -en Mein Bruder sucht Arbeit.
+die Aufgabe, -n Das ist eine schwere Aufgabe.
+die Auskunft, -ü, e Können Sie mir eine Auskunft geben?
+die Aussage, -n Ist die Aussage richtig oder falsch?
+die Autobahn, -en Wo geht‘s hier bitte zur Autobahn?
+die Bäckerei Ich geh mal schnell zur Bäckerei.
+die Bahn Wir fahren lieber mit der Bahn.
+die Banane, -n Drei Bananen, bitte!
+die Bank Die Bank schließt schon um vier Uhr.
+die Birne, -n Ein Kilo Birnen, bitte!
+die Bitte, -n Ich habe noch eine Bitte. 
+die Blume, -n Gefallen dir die Blumen?
+die Briefmarke, -n Kaufst du bitte Briefmarken bei der Post.
+die Butter Für mich bitte ein Brötchen mit Butter und Käse.
+die CD, -s Bring bitte deine Lieblings-CD mit.
+die Dame, -n Damen(anderToilette)
+die Disco Heute abend gehen wir in die Disco tanzen. 
+die Durchsage, -n Ich habe die Durchsage nicht verstanden.
+die Dusche Unsere Wohnung hat nur eine Dusche.
+die Ecke, -n An der nächsten Ecke links.
+die Ehefrau, -en/
+die Einladung Danke für die Einladung!
+die Eltern (pl.) Meine Eltern leben in Spanien.
+die E-Mail, -s Ich habe Ihre E-Mail nicht bekommen.
+die Entschuldigung Entschuldigung! – Bitte.
+die Fahrkarte, -n Hast du schon eine Fahrkarte?
+die Familie, -n Meine Familie lebt in Spanien.
+die Farbe, -n Die Farbe gefällt mir gut.
+die Firma Er arbeitet jetzt bei einer anderen Firma.
+die Flasche, -n Eine Flasche Bier, bitte.
+die Frage, -n Ich habe eine Frage.
+die Frau, -en Das ist Frau Becker.
+die Freizeit In meiner Freizeit spiele ich oft Fußball.
+die Führung Die Führung durch das Haus beginnt in 3 Minuten. 
+die Geschwister (pl.) Ich habe leider keine Geschwister.
+die Größe Haben Sie das auch in Größe 40?
+die Großeltern (pl.) Meine Großeltern leben in Japan.
+die Großmutter Meine Großmutter heißt Eva. 
+die Gruppe, -n Die erste Gruppe beginnt um 16 Uhr.
+die Halbpension Möchten Sie Vollpension oder Halbpension?
+die Halle Wir treffen uns in Halle B
+die Haltestelle An der nächsten Haltestelle müssen Sie aussteigen.
+die Hand, -ä, e Er gibt mir die Hand.
+die Hausaufgabe,-n Kannst du mir bei den Hausaufgaben helfen?
+die Hausfrau, -en/
+die Heimat Ich komme aus der Schweiz. Das ist meine Heimat.
+die Hilfe Hilfe! Bitte helfen Sie mir!
+die Hochzeit Zur dieser Hochzeit kommen mehr als fünfzig Gäste.
+die Information, -en Wenn Sie Fragen haben, gehen Sie zur Information.
+die Jacke, -n Zieh dir eine Jacke an. Es ist kalt.
+die Karte, -n Ich schreibe meinen Bekannten eine Karte aus dem 
+die Kartoffel, -n Für Pommes frites braucht man Kartoffeln.
+die Kasse Zahlen Sie bitte an der Kasse.
+die Klasse In unserer Klasse sind fünfundzwanzig Schüler. 
+die Kleidung Wo finde ich Kleidung? – Jacken im ersten, Jeans im
+die Küche Der neue Herd kommt in die Küche.
+die Leute (pl.) In der Disko sind viele Leute.
+die Lösung, -en Die Lösung ist ganz einfach. 
+die Maschine, -n Die Waschmaschine ist günstig.
+die Miete Die Miete für diese Wohnung ist 600 Euro.
+die Milch Die Milch steht im Kühlschrank.
+die Mitte Der Lehrer steht in der Mitte des Klassenzimmers.
+die Möbel (pl.) Sind die Möbel neu?
+die Mutter, -ü Frau Berghäuser ist die Mutter von Michaela. 
+die Nummer, -n Sie haben Zimmer Nummer zwölf.
+die Oma, -s Meine Oma ist schon tot. 
+die Ordnung Das ist in Ordnung.
+die Papiere (pl.) Haben Sie Ihre Papiere dabei?
+die Partnerin, -nen Sie ist meine Partnerin.
+die Party Heute Abend machen wir eine Party. 
+die Pause, -n Von 12.00 bis 12.30 Uhr haben wir Mittagspause.
+die Polizei Holen Sie die Polizei!
+die Pommes frites (pl.) Die Kinder essen Hähnchen mit Pommes frites.
+die Post Wo ist die Post, bitte?
+die Postleitzahl Wie ist Ihre Postleitzahl?
+die Praxis Die Praxis ist ab acht Uhr geöffnet.
+die Prüfung Die Prüfung ist am Montag um 8.00 Uhr.
+die Rechnung, -en Die Rechnung, bitte.
+die Reise Wir machen eine Reise nach Österreich.
+die Reparatur Die Reparatur ist sehr teuer.
+die Rezeption Fragen Sie bitte im Hotel an der Rezeption. 
+die S-Bahn Ich nehme lieber die S-Bahn.
+die Schule Meine Tochter geht schon in die Schule.
+die Schwester, -n Meine Schwester kommt am Dienstag.
+die Sehenswürdigkeit, -en 
+die Sonne Die Sonne scheint.
+die Speisekarte Bringen Sie mir die Speisekarte, bitte. 
+die Sprache, -n Welche Sprachen sprichst du?
+die Stadt, -ä, e Heidelberg ist eine alte Stadt.
+die Stelle, -n Ich habe eine neue Stelle.
+die Straße, -n In welcher Straße wohnen Sie?
+die Straßenbahn Wo fährt die Straßenbahn ab?
+die Stunde, -n Ich bin in einer Stunde zurück.
+die Tasche, -n Ich habe die Schlüssel in der Tasche.
+die Tochter, -ö Das ist meine Tochter Katharina.
+die Toilette, -en Wo ist die Toilette, bitte?
+die Tomate, -n Die Tomate ist noch grün.
+die Treppe, -n Die Toilette? Die Treppe hoch und dann links.
+die Uhr Es ist vier Uhr.
+die Unterschrift Hier fehlt noch Ihre Unterschrift.
+die Vorsicht Vorsicht! Da kommt ein Auto.
+die Vorwahl Wie ist die Vorwahl von München?
+die Welt Es gibt viele Probleme auf der Welt.
+die Wohnung, -en Seit wann haben Sie diese Wohnung?
+die Zeit Ich habe heute keine Zeit.
+die Zeitung, -en Ich lese gern Zeitung.
+die Zigarette, -n Wie teuer sind die Zigaretten?
+das Alter Alter: 26 Jahre.
+das Angebot, -e Heute sind Sportschuhe im Angebot.
+das Apartment, -s Wir haben ein Apartment gemietet.
+das Auge, -n Er hat blaue Augen.
+das Ausland Fahren Sie ins Ausland?
+das Auto, -s Er kommt mit dem Auto.
+das Baby, -s Mein Kind ist noch ein Baby.
+das Bad Wir haben kein großes Bad.
+das Bein, -e Mein rechtes Bein tut weh.
+das Beispiel, -e Kannst du mir ein Beispiel sagen?
+das Bett, -en Wir brauchen noch ein Kinderbett.
+das Bier Noch ein Bier bitte.
+das Bild, -er Hast du ein Bild von deinem Sohn?
+das Brot, -e Haben Sie auch Weißbrot?
+das Brötchen, – Möchtest du Brötchen zum Frühstück?
+das Buch, -ü, er Gute Bücher sind oft sehr teuer. 
+das Datum Bitte schreiben Sie noch das Datum auf das Formular.
+das Doppelzimmer Wollen Sie ein Doppelzimmer oder ein Einzelzimmer?
+das Dorf, -ö, er Meine Familie lebt in einem Dorf.
+das Ei, -er Möchtest du ein Ei zum Frühstück?
+das Einzelzimmer Haben Sie noch ein Einzelzimmer?
+das Ende Sie wohnt am Ende der Straße.
+das Ergebnis, -se Das Ergebnis des Tests bekommen Sie in zwei Wochen.
+das Essen Das Essen ist heute sehr gut.
+das Fahrrad, -ä, er Fährst du mit dem Fahrrad oder mit dem Auto?
+das Fax, -e Schicken Sie uns einfach ein Fax!
+das Feuer Haben Sie Feuer?
+das Fieber Mein Mann hat noch immer Fieber.
+das Fleisch Fleisch mag ich nicht.
+das Flugzeug Das Flugzeug aus Berlin kommt heute später an.
+das Formular, -e Sie müssen dieses Formular ausfüllen.
+das Foto, -s Darf ich ein Foto machen?
+das Frühstück Möchtest du ein Ei zum Frühstück?
+das Geburtsjahr Das Geburtsjahr Ihres Sohnes, bitte?
+das Geld Hast du noch Geld?
+das Gemüse Gemüse brauchen wir auch noch.
+das Gepäck Wollen Sie Ihr Gepäck mitnehmen?
+das Geschäft, -e Die Geschäfte schließen um 18.30 Uhr.
+das Geschenk, -e Danke für das schöne Geschenk.
+das Gespräch, -e Das Gespräch mit Frau Kunz ist um 14 Uhr.
+das Getränk, -e Mein Lieblingsgetränk ist Tomatensaft.
+das Gewicht Bei „Gewicht“ schreibst du: 62 Kilo.
+das Glas, -ä, er Bitte noch ein Glas Wein!
+das Gleis, -e Der ICE nach Berlin hält heute an Gleis 12.
+das Glück Viel Glück!
+das Haar, -e Sie hat lange Haare.
+das Hähnchen, - Ein Hähnchen mit Pommes bitte! 
+das Handy, -s In der Schule bitte die Handys ausmachen! 
+das Haus, -ä, er In welchem Haus wohnst du?
+das Hobby, -s Meine Hobbys sind Wandern und Schwimmen.
+das Hotel, -s Im Urlaub sind wir in einem Hotel am Meer.
+das Internet Das findest du im Internet. 
+das Kind, -er Wie viele Kinder haben Sie?
+das Kino, -s Wir sehen heute Abend im Kino einen schönen Film.
+das Konto Das Geld überweisen wir am ersten März auf Ihr Konto.
+das Land, -ä, er Italien ist ein schönes Land.
+das Leben Das Leben in diesem Land ist teuer.
+das Licht Wo macht man hier das Licht an?
+das Lied, -er Welches ist dein Lieblingslied?
+das Lokal In unserer Straße gibt es ein neues Lokal. 
+das Mädchen, – Familie Kurz bekommt ein Baby. – Junge oder Mädchen? 
+das Meer Wir machen Urlaub am Meer.
+das Obst Im Sommer ist das Obst billig.
+das Öl Den Salat machen wir ohne Öl.
+das Papier Hier sind Papier und Bleistift.
+das Praktikum Ich mache ein Praktikum bei Siemens. 
+das Problem, -e Mein Problem ist die Sprache.
+das Reisebüro, -s Mein Mann arbeitet im Reisebüro. 
+das Restaurant, -s Wir essen heute in einem Restaurant.
+das Salz Herr Ober, kann ich bitte Salz haben?
+das Schild, -er Haben Sie nicht das Schild gesehen?
+das Schwimmbad Kommst du mit ins Schwimmbad?
+das Sofa Das Sofa ist neu.
+das Studium Das Studium beginnt im Oktober. 
+das Taxi, -s Es gibt heute keinen Bus mehr. Er fährt mit dem Taxi.
+das Telefon Haben Sie Telefon?
+das Thema Wir sprechen heute über das Thema „Essen und 
+das Ticket, -s Wie viel kostet das Ticket?
+das Wasser Ein Glas Wasser, bitte.
+das Wetter Wir hatten schlechtes Wetter.
+das Wiederhören Wir müssen jetzt Schluss machen.
+das Wiedersehen Auf Wiedersehen!
+das Wort, -ö, er/-e Ich kenne das Wort nicht.
+das Zimmer, – Das Zimmer ist groß.
