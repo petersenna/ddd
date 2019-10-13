@@ -93,11 +93,11 @@ func deathCallback(term *termination.Termination, entity *termination.Entity) {
 	wordForScreen.dddData.mutex.Unlock()
 
 	if wordIdx > 0 {
-		removeFromScreen(*(wordForScreen.dddData), wordIdx, true)
+		removeFromScreen(wordForScreen.dddData, wordIdx, true)
 	}
 }
 
-func removeFromScreen(dddData dddData, wordIdx int, noWait bool) {
+func removeFromScreen(dddData *dddData, wordIdx int, noWait bool) {
 	var wordForScreen WordForScreen
 
 	dddData.mutex.Lock()
@@ -127,7 +127,7 @@ func removeFromScreen(dddData dddData, wordIdx int, noWait bool) {
 	wordForScreen.Entity.Die()
 }
 
-func randomRemoveFromScreen(dddData dddData) {
+func randomRemoveFromScreen(dddData *dddData) {
 	var wordIdx int
 	var ok bool = false
 
@@ -148,7 +148,7 @@ func randomRemoveFromScreen(dddData dddData) {
 	removeFromScreen(dddData, wordIdx, false)
 }
 
-func randomWordToScreen(dddData dddData) {
+func randomWordToScreen(dddData *dddData) {
 
 	var wordForScreen WordForScreen
 	var wordIdx int
@@ -181,7 +181,7 @@ func randomWordToScreen(dddData dddData) {
 	position := termination.Position{-1 * wordLen, random(0, maxHeight), 0}
 
 	wordForScreen.Word = dddData.wordsList[wordIdx]
-	wordForScreen.dddData = &dddData
+	wordForScreen.dddData = dddData
 	wordForScreen.Entity = dddData.term.NewEntity(position)
 	wordForScreen.Entity.Shape = wordShape
 	wordForScreen.Entity.DeathOnOffScreen = true
@@ -194,7 +194,7 @@ func randomWordToScreen(dddData dddData) {
 	dddData.mutex.Unlock()
 }
 
-func wordAdderLoop(dddData dddData) {
+func wordAdderLoop(dddData *dddData) {
 	tick := time.Tick(250 * time.Millisecond)
 
 	for {
@@ -205,7 +205,7 @@ func wordAdderLoop(dddData dddData) {
 	}
 }
 
-func wordRemoverLoop(dddData dddData) {
+func wordRemoverLoop(dddData *dddData) {
 	tick := time.Tick(250 * time.Millisecond)
 
 	for {
@@ -263,7 +263,7 @@ type Status struct {
 
 }
 
-func statusBar(dddData dddData) {
+func createStatusBar(dddData *dddData) {
 	// Typing skill: 123 (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)	Words 10m: 9999
 	// German skill: 123 (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
 	// Game score: 9999                   Time elapsed: 00s
@@ -321,7 +321,7 @@ func statusBar(dddData dddData) {
 }
 
 func main() {
-	var dddData dddData
+	dddData := new(dddData)
 
 	dddData.onScreenList = make(map[int]WordForScreen)
 	dddData.mutex = &sync.Mutex{}
@@ -330,6 +330,8 @@ func main() {
 	dddData.wordsList = populateWords("A1Worteliste.txt")
 	dddData.statusHeight = 4
 
+	createStatusBar(dddData)
+
 	rand.Seed(time.Now().UnixNano())
 
 	defer dddData.term.Close()
@@ -337,7 +339,6 @@ func main() {
 
 	termbox.SetInputMode(termbox.InputEsc)
 
-	go statusBar(dddData)
 	go wordAdderLoop(dddData)
 	time.Sleep(5 * time.Second)
 	go wordRemoverLoop(dddData)
