@@ -33,6 +33,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	//"fmt"
 	"github.com/ansoni/termination"
 	"github.com/nsf/termbox-go"
@@ -41,6 +42,7 @@ import (
 	"os"
 	"strings"
 	"sync"
+	"text/template"
 	"time"
 )
 
@@ -54,6 +56,7 @@ type dddData struct {
 	onScreenList map[int]WordForScreen
 	mutex        *sync.Mutex
 	term         *termination.Termination
+	statusHeight int
 }
 
 type WordForScreen struct {
@@ -174,7 +177,8 @@ func randomWordToScreen(dddData dddData) {
 	}
 
 	wordLen := len(word) + 4 // 4 is from "___ "
-	position := termination.Position{-1 * wordLen, random(0, dddData.term.Height), 0}
+	maxHeight := dddData.term.Height - dddData.statusHeight - 1
+	position := termination.Position{-1 * wordLen, random(0, maxHeight), 0}
 
 	wordForScreen.Word = dddData.wordsList[wordIdx]
 	wordForScreen.dddData = &dddData
@@ -237,6 +241,85 @@ func populateWords(inputFile string) []Worte {
 	return wordsList
 }
 
+type Status struct {
+	//Typing
+	TypingSkill     int    // From one finger slow to four hands two keyboards
+	TypingSkillText string // A comment/label about skill level
+	Words10m        int    // How many words typed in 10 minutes
+
+	//German
+	GermanSkill     int    // From one finger slow to four hands two keyboards
+	GermanSkillText string // A comment/label about skill level
+
+	//Game
+	Score    int
+	TimeUsed int // Time since game started
+
+	//Words
+	Typing       string // Word being typed
+	Traffic      int    // How many correct words shown
+	TrafficTotal int    // Word count on the dictionary
+	Missed       int    // Number of missed words
+
+}
+
+func statusBar(dddData dddData) {
+	// Typing skill: 123 (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)	Words 10m: 9999
+	// German skill: 123 (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+	// Game score: 9999                   Time elapsed: 00s
+	// [__________________________________]	 Traffic 9999/9999   Missed: 99
+
+	var statusBuf bytes.Buffer
+
+	position := termination.Position{0, dddData.term.Height - 4, 0}
+	statusBar := dddData.term.NewEntity(position)
+
+	templateText := "{{printf `Typing skill: %3d %-32s %14s Words 10: %4d` .TypingSkill .TypingSkillText ` ` .Words10m}}\n" +
+		"{{printf `German skill: %3d %-32s %28s` .GermanSkill .GermanSkillText ` `}}\n" +
+		"{{printf `Game score %-4d %45s Time elapsed: %2ds` .Score ` ` .TimeUsed}}\n" +
+		"{{printf `[%32s] %7s Traffic: %-4d/%-4d %7s Missed %2d` .Typing ` ` .Traffic .TrafficTotal ` ` .Missed}}"
+		/*
+			templateText := "Typing skill: {{.TypingSkill}} ({{.TypingSkillText}}) Words 10m: {{.Words10m}}\n" +
+				"German skill: {{.GermanSkill}} ({{.GermanSkillText}})\n" +
+				"Game score: {{.Score}} Time elapsed: {{.TimeUsed}}\n" +
+				"[{{.Typing}}] Traffic {{.Traffic}}/{{.TrafficTotal}} Missed: {{.Missed}}"
+		*/
+	status := Status{
+		TypingSkill:     133,
+		TypingSkillText: "Not bad",
+		Words10m:        1234,
+		GermanSkill:     61,
+		GermanSkillText: "Very slow",
+		Score:           1234,
+		TimeUsed:        10,
+		Typing:          "das Auto",
+		Traffic:         14,
+		TrafficTotal:    123,
+		Missed:          5,
+	}
+
+	statusTemplate, err := template.New("status").Parse(templateText)
+	if err != nil {
+		panic(err)
+	}
+
+	err = statusTemplate.Execute(&statusBuf, status)
+	if err != nil {
+		panic(err)
+	}
+
+	statusString := statusBuf.String()
+
+	statusShape := termination.Shape{
+		"default": []string{
+			statusString,
+		},
+	}
+	statusBar.Shape = statusShape
+	statusBar.DefaultColor = 'W'
+
+}
+
 func main() {
 	var dddData dddData
 
@@ -245,6 +328,7 @@ func main() {
 	dddData.term = termination.New()
 	dddData.term.FramesPerSecond = 10
 	dddData.wordsList = populateWords("A1Worteliste.txt")
+	dddData.statusHeight = 4
 
 	rand.Seed(time.Now().UnixNano())
 
@@ -253,6 +337,7 @@ func main() {
 
 	termbox.SetInputMode(termbox.InputEsc)
 
+	go statusBar(dddData)
 	go wordAdderLoop(dddData)
 	time.Sleep(5 * time.Second)
 	go wordRemoverLoop(dddData)
