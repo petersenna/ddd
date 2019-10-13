@@ -18,8 +18,6 @@
  *     - Difficulty level increases dynamically based on user skills
  *     - Socre board
  * - Colors and visual
- *    - Use terminal dimensions instead of fixed values
- *    - Add a few status lines and a place for user input
  *    - yellow words that are 60% of the way to the end
  *    - red words that are 80% of the way to the end
  *    - red background if the game is close to the end
@@ -46,6 +44,15 @@ import (
 	"time"
 )
 
+// Typing skill: 123 (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)	Words 10m: 9999
+// German skill: 123 (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
+// Game score: 9999                   Time elapsed: 00s
+// [__________________________________]	 Traffic 9999/9999   Missed: 99
+const statusTemplateText string = "{{printf `Typing skill: %04d %-32s %11s Words/10m: %04d` .TypingSkill .TypingSkillText ` ` .Words10m}}\n" +
+	"{{printf `German skill: %04d %-32s %6s Traffic: %04d / %04d` .GermanSkill .GermanSkillText ` ` .Traffic .TrafficTotal}}\n" +
+	"{{printf `  Game score: %04d %38s Time elapsed(s): %04d` .Score ` ` .TimeUsed}}\n" +
+	"{{printf `[%32s] %31s Missed: %04d` .Typing ` ` .Missed}}\n"
+
 type Worte struct {
 	Article string
 	Word    string
@@ -53,9 +60,11 @@ type Worte struct {
 
 type dddData struct {
 	wordsList    []Worte
-	onScreenList map[int]WordForScreen
+	onScreenList map[int]*WordForScreen
 	mutex        *sync.Mutex
 	term         *termination.Termination
+	status       Status
+	statusBar    *termination.Entity
 	statusHeight int
 }
 
@@ -65,23 +74,73 @@ type WordForScreen struct {
 	Hits    int
 	Misses  int
 	dddData *dddData
+	dead    bool
+}
+
+type Status struct {
+	//Typing
+	TypingSkill     int    // From one finger slow to four hands two keyboards
+	TypingSkillText string // A comment/label about skill level
+	Words10m        int    // How many words typed in 10 minutes
+
+	//German
+	GermanSkill     int    // From one finger slow to four hands two keyboards
+	GermanSkillText string // A comment/label about skill level
+
+	//Game
+	Score    int
+	TimeUsed int // Time since game started
+
+	//Words
+	Typing       string // Word being typed
+	Traffic      int    // How many correct words shown
+	TrafficTotal int    // Word count on the dictionary
+	Missed       int    // Number of missed words
 }
 
 func random(min int, max int) int {
 	return rand.Intn(max-min) + min
 }
 
-func wordMovement(t *termination.Termination, e *termination.Entity, position termination.Position) termination.Position {
+func wordMovement(term *termination.Termination, entity *termination.Entity, position termination.Position) termination.Position {
+	// Let's limit to 80 chars for now
+	maxLen := 80
+	var isDead bool
+
+	wordForScreen := entity.Data.(*WordForScreen)
+
+	wordForScreen.dddData.mutex.Lock()
+	isDead = wordForScreen.dead
+	wordForScreen.dddData.mutex.Unlock()
+
+	word := wordForScreen.Word.Word
+	wordLen := len(word)
+
+	if isDead && position.X >= wordLen-3 {
+		return position
+	}
+
+	maxLen -= (wordLen + 4) //+4 is for the "___ "
+
+	if position.X == maxLen {
+		deathCallback(term, entity)
+		return position
+	}
+
 	position.X += 1
 	return position
 }
 
 func deathCallback(term *termination.Termination, entity *termination.Entity) {
 
-	wordForScreen := entity.Data.(WordForScreen)
+	wordForScreen := entity.Data.(*WordForScreen)
 
 	word := wordForScreen.Word.Word
 	var wordIdx int = -1
+
+	wordForScreen.dddData.mutex.Lock()
+	wordForScreen.Entity.DefaultColor = 'R'
+	wordForScreen.dddData.mutex.Unlock()
 
 	wordForScreen.dddData.mutex.Lock()
 	for key, value := range wordForScreen.dddData.onScreenList {
@@ -93,12 +152,12 @@ func deathCallback(term *termination.Termination, entity *termination.Entity) {
 	wordForScreen.dddData.mutex.Unlock()
 
 	if wordIdx > 0 {
-		removeFromScreen(wordForScreen.dddData, wordIdx, true)
+		go removeFromScreen(wordForScreen.dddData, wordIdx, false)
 	}
 }
 
 func removeFromScreen(dddData *dddData, wordIdx int, noWait bool) {
-	var wordForScreen WordForScreen
+	wordForScreen := new(WordForScreen)
 
 	dddData.mutex.Lock()
 	_, ok := dddData.onScreenList[wordIdx]
@@ -120,9 +179,14 @@ func removeFromScreen(dddData *dddData, wordIdx int, noWait bool) {
 			article + " " + word,
 		},
 	}
+
+	dddData.mutex.Lock()
 	wordForScreen.Entity.Shape = wordShape
+	wordForScreen.dead = true
+	dddData.mutex.Unlock()
+
 	if !noWait {
-		time.Sleep(250 * time.Millisecond)
+		time.Sleep(1000 * time.Millisecond)
 	}
 	wordForScreen.Entity.Die()
 }
@@ -145,12 +209,16 @@ func randomRemoveFromScreen(dddData *dddData) {
 		return
 	}
 
-	removeFromScreen(dddData, wordIdx, false)
+	dddData.mutex.Lock()
+	dddData.onScreenList[wordIdx].Entity.DefaultColor = 'G'
+	dddData.mutex.Unlock()
+
+	go removeFromScreen(dddData, wordIdx, false)
 }
 
 func randomWordToScreen(dddData *dddData) {
 
-	var wordForScreen WordForScreen
+	wordForScreen := new(WordForScreen)
 	var wordIdx int
 
 	wordMaxIdx := len(dddData.wordsList) - 1
@@ -188,6 +256,7 @@ func randomWordToScreen(dddData *dddData) {
 	wordForScreen.Entity.MovementCallback = wordMovement
 	wordForScreen.Entity.Data = wordForScreen
 	wordForScreen.Entity.DeathCallback = deathCallback
+	wordForScreen.Entity.DefaultColor = 'W'
 
 	dddData.mutex.Lock()
 	dddData.onScreenList[wordIdx] = wordForScreen
@@ -195,7 +264,7 @@ func randomWordToScreen(dddData *dddData) {
 }
 
 func wordAdderLoop(dddData *dddData) {
-	tick := time.Tick(250 * time.Millisecond)
+	tick := time.Tick(850 * time.Millisecond)
 
 	for {
 		select {
@@ -206,7 +275,7 @@ func wordAdderLoop(dddData *dddData) {
 }
 
 func wordRemoverLoop(dddData *dddData) {
-	tick := time.Tick(250 * time.Millisecond)
+	tick := time.Tick(850 * time.Millisecond)
 
 	for {
 		select {
@@ -241,94 +310,48 @@ func populateWords(inputFile string) []Worte {
 	return wordsList
 }
 
-type Status struct {
-	//Typing
-	TypingSkill     int    // From one finger slow to four hands two keyboards
-	TypingSkillText string // A comment/label about skill level
-	Words10m        int    // How many words typed in 10 minutes
+func updateStatus(dddData *dddData) {
+	statusBuf := new(bytes.Buffer)
 
-	//German
-	GermanSkill     int    // From one finger slow to four hands two keyboards
-	GermanSkillText string // A comment/label about skill level
-
-	//Game
-	Score    int
-	TimeUsed int // Time since game started
-
-	//Words
-	Typing       string // Word being typed
-	Traffic      int    // How many correct words shown
-	TrafficTotal int    // Word count on the dictionary
-	Missed       int    // Number of missed words
-
-}
-
-func createStatusBar(dddData *dddData) {
-	// Typing skill: 123 (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)	Words 10m: 9999
-	// German skill: 123 (aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)
-	// Game score: 9999                   Time elapsed: 00s
-	// [__________________________________]	 Traffic 9999/9999   Missed: 99
-
-	var statusBuf bytes.Buffer
-
-	position := termination.Position{0, dddData.term.Height - 4, 0}
-	statusBar := dddData.term.NewEntity(position)
-
-	templateText := "{{printf `Typing skill: %3d %-32s %14s Words 10: %4d` .TypingSkill .TypingSkillText ` ` .Words10m}}\n" +
-		"{{printf `German skill: %3d %-32s %28s` .GermanSkill .GermanSkillText ` `}}\n" +
-		"{{printf `Game score %-4d %45s Time elapsed: %2ds` .Score ` ` .TimeUsed}}\n" +
-		"{{printf `[%32s] %7s Traffic: %-4d/%-4d %7s Missed %2d` .Typing ` ` .Traffic .TrafficTotal ` ` .Missed}}"
-		/*
-			templateText := "Typing skill: {{.TypingSkill}} ({{.TypingSkillText}}) Words 10m: {{.Words10m}}\n" +
-				"German skill: {{.GermanSkill}} ({{.GermanSkillText}})\n" +
-				"Game score: {{.Score}} Time elapsed: {{.TimeUsed}}\n" +
-				"[{{.Typing}}] Traffic {{.Traffic}}/{{.TrafficTotal}} Missed: {{.Missed}}"
-		*/
-	status := Status{
-		TypingSkill:     133,
-		TypingSkillText: "Not bad",
-		Words10m:        1234,
-		GermanSkill:     61,
-		GermanSkillText: "Very slow",
-		Score:           1234,
-		TimeUsed:        10,
-		Typing:          "das Auto",
-		Traffic:         14,
-		TrafficTotal:    123,
-		Missed:          5,
-	}
-
-	statusTemplate, err := template.New("status").Parse(templateText)
+	statusTemplate, err := template.New("status").Parse(statusTemplateText)
 	if err != nil {
 		panic(err)
 	}
 
-	err = statusTemplate.Execute(&statusBuf, status)
+	err = statusTemplate.Execute(statusBuf, dddData.status)
 	if err != nil {
 		panic(err)
 	}
 
 	statusString := statusBuf.String()
-
-	statusShape := termination.Shape{
+	dddData.mutex.Lock()
+	dddData.statusBar.Shape = termination.Shape{
 		"default": []string{
 			statusString,
 		},
 	}
-	statusBar.Shape = statusShape
-	statusBar.DefaultColor = 'W'
+	dddData.mutex.Unlock()
+}
+
+func createStatusBar(dddData *dddData) {
+	dddData.statusHeight = 4
+
+	position := termination.Position{0, dddData.term.Height - dddData.statusHeight, 0}
+	dddData.statusBar = dddData.term.NewEntity(position)
+	dddData.statusBar.DefaultColor = 'B'
+
+	updateStatus(dddData)
 
 }
 
 func main() {
 	dddData := new(dddData)
 
-	dddData.onScreenList = make(map[int]WordForScreen)
+	dddData.onScreenList = make(map[int]*WordForScreen)
 	dddData.mutex = &sync.Mutex{}
 	dddData.term = termination.New()
-	dddData.term.FramesPerSecond = 10
+	dddData.term.FramesPerSecond = 8
 	dddData.wordsList = populateWords("A1Worteliste.txt")
-	dddData.statusHeight = 4
 
 	createStatusBar(dddData)
 
@@ -349,7 +372,10 @@ mainloop:
 		case termbox.EventKey:
 			if ev.Key == termbox.KeyEsc || ev.Key == termbox.KeyCtrlC {
 				break mainloop
-			}
+			} /*
+				if ev.Ch != 0 {
+					keyPress(dddData)
+				}*/
 		}
 	}
 }
