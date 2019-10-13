@@ -28,3 +28,8 @@ The line formats are:
     - Article (pl.) Word Example
     - Article Word, Plural-modifier Example
     - Article Word, Plural-modifier, Plural-modifier(lower-case), Example
+
+# Recording the screenshot
+
+    $ xwininfo
+    $ byzanz-record -x 939 -y 254 -w 1186 -h 821 -d 20 docs/ddd_screenshot.gif
